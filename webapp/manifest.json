@@ -15,7 +15,21 @@
             "version": "1.12.5",
             "toolsId": "466334be-c6d3-49b9-9116-4a6b2d4f373f"
         },
-        "dataSources": {}
+        "dataSources": {},
+        "crossNavigation": {
+            "inbounds": {
+                "ordercontrol_sem_obj-Display": {
+                    "semanticObject": "ordercontrol_sem_obj",
+                    "action": "Display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
     },
     "sap.ui": {
         "technology": "UI5",
@@ -116,5 +130,9 @@
             "async": true,
             "id": "App"
         }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "comlab2devordercontrol"
     }
 }

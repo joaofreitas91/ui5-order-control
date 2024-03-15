@@ -4,6 +4,7 @@
     xmlns="sap.m"
     xmlns:t="sap.ui.table"
     xmlns:web="sap.ui.webc.main"
+    xmlns:chart="sap.suite.ui.microchart"
     xmlns:u="sap.ui.unified"
     displayBlock="true"
 >
@@ -13,47 +14,150 @@
         showHeader="false"
         showFooter="true"
     >
-        <VBox class="sapUiTinyMarginBeginEnd sapUiSmallMarginTopBottom">
-            <!-- <Title
+        <VBox class="sapUiSmallMarginTopBottom">
+            <Title
                 text="Pedidos"
                 level="H1"
-                class="sapUiTinyMarginBegin sapUiSmallMarginTopBottom"
-            /> -->
-            <Panel>
-                <headerToolbar>
-                    <OverflowToolbar>
-                        <Title text="Informações do usuário" />
-                    </OverflowToolbar>
-                </headerToolbar>
-                <content>
-                    <HBox
-                        alignItems="Center"
-                        justifyContent="SpaceBetween"
-                        width="60%"
-                    >
-                        <VBox
-                            class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
+                class="sapUiTinyMargin"
+            />
+            <HBox
+                class="sapUiSmallMarginTopBottom"
+                justifyContent="SpaceBetween"
+                width="100%"
+            >
+                <GenericTile
+                    width="16rem"
+                    class="tileLayout sapUiTinyMarginBeginEnd"
+                    header="Total de Pedidos Diários"
+                    subheader="Data: 14/03/2024"
+                    pressEnabled="false"
+                >
+                    <TileContent>
+                        <NumericContent
+                            value="5"
+                            valueColor="Good"
+                            withMargin="false"
+                            scale="UN"
+                            indicator="Up"
+                        />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile
+                    width="16rem"
+                    class="tileLayout sapUiTinyMarginBeginEnd"
+                    header="Total de Pedidos Diários"
+                    subheader="Data: 14/03/2024"
+                    pressEnabled="false"
+                >
+                    <TileContent>
+                        <NumericContent
+                            value="5"
+                            valueColor="Good"
+                            withMargin="false"
+                            scale="UN"
+                            indicator="Up"
+                        />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile
+                    width="16rem"
+                    class="tileLayout sapUiTinyMarginBeginEnd"
+                    header="Total de Pedidos Diários"
+                    subheader="Data: 14/03/2024"
+                    pressEnabled="false"
+                >
+                    <TileContent>
+                        <NumericContent
+                            value="5"
+                            valueColor="Good"
+                            withMargin="false"
+                            scale="UN"
+                            indicator="Up"
+                        />
+                    </TileContent>
+                </GenericTile>
+
+                <Panel
+                    width="auto"
+                    accessibleRole="Region"
+                    derection="Collumn"
+                    class="sapUiTinyMarginBeginEnd"
+                >
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="Informações do usuário" />
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <content>
+                        <FlexBox
+                            alignItems="Center"
+                            justifyContent="SpaceBetween"
+                            backgroundDesign="Solid"
+                            width="20rem"
+                            class="sapUiTinyMarginTop"
                         >
-                            <Title
-                                level="H3"
-                                text="Name:"
-                            />
-                            <Text text="Citrosuco" />
-                        </VBox>
-                        <VBox
-                            class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
+                            <chart:InteractiveDonutChart
+                                selectionChanged="onSelectionChanged"
+                            >
+                                <chart:segments>
+                                    <chart:InteractiveDonutChartSegment
+                                        label="Implementation Phase"
+                                        value="40.0"
+                                        displayedValue="40.0%"
+                                    />
+                                    <chart:InteractiveDonutChartSegment
+                                        label="Design Phase"
+                                        value="21.5"
+                                        displayedValue="21.5%"
+                                    />
+                                    <chart:InteractiveDonutChartSegment
+                                        label="Test Phase"
+                                        value="38.5"
+                                        displayedValue="38.5%"
+                                    />
+                                </chart:segments>
+                            </chart:InteractiveDonutChart>
+                        </FlexBox>
+                    </content>
+                </Panel>
+            </HBox>
+            <VBox class="sapUiTinyMarginEnd sapUiTinyMarginBegin">
+                <Panel >
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="Informações do usuário" />
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <content>
+                        <HBox
+                            alignItems="Center"
+                            justifyContent="SpaceBetween"
+                            width="60%"
                         >
-                            <Title
-                                level="H3"
-                                text="Endereço:"
-                            />
-                            <Text
-                                text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
-                            />
-                        </VBox>
-                    </HBox>
-                </content>
-            </Panel>
+                            <VBox
+                                class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
+                            >
+                                <Title
+                                    level="H3"
+                                    text="Name:"
+                                />
+                                <Text text="Citrosuco" />
+                            </VBox>
+                            <VBox
+                                class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
+                            >
+                                <Title
+                                    level="H3"
+                                    text="Endereço:"
+                                />
+                                <Text
+                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
+                                />
+                            </VBox>
+                        </HBox>
+                    </content>
+                </Panel>
+            </VBox>
         </VBox>
         <content>
             <t:Table
@@ -73,7 +177,10 @@
                             text="Pedidos"
                         />
                         <ToolbarSpacer />
-						<SearchField width="12rem" search=".onSearch" />
+                        <SearchField
+                            width="12rem"
+                            search=".onSearch"
+                        />
                         <Button
                             icon="sap-icon://edit"
                             tooltip="Edit Item"
@@ -101,10 +208,10 @@
                             />
                         </t:template>
                     </t:Column>
-                    <t:Column >
+                    <t:Column>
                         <Label text="Status" />
                         <t:template>
-                            <web:Badge 
+                            <web:Badge
                                 text="{orders>state}"
                                 colorScheme="{
                                     path: 'orders>state',
@@ -143,15 +250,16 @@
                     <t:Column>
                         <Label text="Valor" />
                         <t:template>
-                        <ObjectNumber
-                            number="{ path: 'orders>value',
+                            <ObjectNumber
+                                number="{ path: 'orders>value',
                                 type: 'sap.ui.model.type.Float',
                                 formatOptions: {
                                     minFractionDigits: 2,
                                     maxFractionDigits: 2
                                 }
                             }"
-                            unit="BRL"/>
+                                unit="BRL"
+                            />
                         </t:template>
                     </t:Column>
                 </t:columns>
