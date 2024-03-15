@@ -18,7 +18,7 @@
             <Title
                 text="Pedidos"
                 level="H1"
-                class="sapUiTinyMargin"
+                class="sapUiMediumMarginBeginEnd"
             />
             <HBox
                 class="sapUiSmallMarginTopBottom"
@@ -27,7 +27,7 @@
             >
                 <GenericTile
                     width="16rem"
-                    class="tileLayout sapUiTinyMarginBeginEnd"
+                    class="tileLayout sapUiMediumMarginBeginEnd"
                     header="Total de Pedidos Diários"
                     subheader="Data: 14/03/2024"
                     pressEnabled="false"
@@ -44,7 +44,7 @@
                 </GenericTile>
                 <GenericTile
                     width="16rem"
-                    class="tileLayout sapUiTinyMarginBeginEnd"
+                    class="tileLayout sapUiMediumMarginBeginEnd"
                     header="Total de Pedidos Diários"
                     subheader="Data: 14/03/2024"
                     pressEnabled="false"
@@ -61,7 +61,7 @@
                 </GenericTile>
                 <GenericTile
                     width="16rem"
-                    class="tileLayout sapUiTinyMarginBeginEnd"
+                    class="tileLayout sapUiMediumMarginBeginEnd"
                     header="Total de Pedidos Diários"
                     subheader="Data: 14/03/2024"
                     pressEnabled="false"
@@ -81,7 +81,7 @@
                     width="auto"
                     accessibleRole="Region"
                     derection="Collumn"
-                    class="sapUiTinyMarginBeginEnd"
+                    class="sapUiMediumMarginBeginEnd"
                 >
                     <headerToolbar>
                         <OverflowToolbar>
@@ -121,7 +121,7 @@
                     </content>
                 </Panel>
             </HBox>
-            <VBox class="sapUiTinyMarginEnd sapUiTinyMarginBegin">
+            <VBox class="sapUiMediumMarginBeginEnd">
                 <Panel >
                     <headerToolbar>
                         <OverflowToolbar>
@@ -168,7 +168,7 @@
                 selectionBehavior="RowOnly"
                 visibleRowCountMode="Fixed"
                 visibleRowCount="10"
-                class="sapUiTinyMarginBegin sapUiTinyMarginEnd"
+                class="sapUiMediumMarginBeginEnd"
             >
                 <t:extension>
                     <OverflowToolbar>
