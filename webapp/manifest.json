@@ -87,7 +87,7 @@
                 },
                 {
                     "name": "RouteOrderDetail",
-                    "pattern": "detail/:?query:",
+                    "pattern": "detail/{productId}",
                     "target": [
                         "TargetOrderDetail"
                     ]

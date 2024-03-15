@@ -1,26 +1,24 @@
 <mvc:View
     controllerName="com.lab2dev.ordercontrol.controller.OrderControl"
     xmlns:mvc="sap.ui.core.mvc"
-    displayBlock="true"
     xmlns="sap.m"
-    xmlns:l="sap.ui.layout"
     xmlns:t="sap.ui.table"
-    xmlns:f="sap.ui.layout.form"
-    xmlns:core="sap.ui.core"
-    xmlns:card="sap.f.cards"
+    xmlns:web="sap.ui.webc.main"
+    xmlns:u="sap.ui.unified"
+    displayBlock="true"
 >
     <Page
         id="page"
-        title="{i18n>title}"
+        title=""
         showHeader="false"
         showFooter="true"
     >
-        <VBox class="sapUiTinyMargin">
-            <Title
+        <VBox class="sapUiTinyMarginBeginEnd sapUiSmallMarginTopBottom">
+            <!-- <Title
                 text="Pedidos"
                 level="H1"
                 class="sapUiTinyMarginBegin sapUiSmallMarginTopBottom"
-            />
+            /> -->
             <Panel>
                 <headerToolbar>
                     <OverflowToolbar>
@@ -103,12 +101,15 @@
                             />
                         </t:template>
                     </t:Column>
-                    <t:Column>
+                    <t:Column >
                         <Label text="Status" />
                         <t:template>
-                            <Text
+                            <web:Badge 
                                 text="{orders>state}"
-                                wrapping="false"
+                                colorScheme="{
+                                    path: 'orders>state',
+                                    formatter: '.formatter.textStatus'
+                                }"
                             />
                         </t:template>
                     </t:Column>
@@ -142,10 +143,15 @@
                     <t:Column>
                         <Label text="Valor" />
                         <t:template>
-                            <Text
-                                text="{orders>value}"
-                                wrapping="false"
-                            />
+                        <ObjectNumber
+                            number="{ path: 'orders>value',
+                                type: 'sap.ui.model.type.Float',
+                                formatOptions: {
+                                    minFractionDigits: 2,
+                                    maxFractionDigits: 2
+                                }
+                            }"
+                            unit="BRL"/>
                         </t:template>
                     </t:Column>
                 </t:columns>
