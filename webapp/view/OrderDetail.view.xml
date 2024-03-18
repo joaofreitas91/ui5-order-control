@@ -155,6 +155,7 @@
                     text="Repetir Pedido"
                     class="sapUiMediumMarginEnd"
                     type="Accept"
+                    press="onCopy"
                 />
             </OverflowToolbar>
         </footer>

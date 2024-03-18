@@ -61,14 +61,13 @@ sap.ui.define([
       },
 
       onCopy: function () {
-        const position = this.byId('tableOrders').getSelectedIndex()
-        const orders = this.getView().getModel('orders').getData()
+        const { ID } = this.getView().getModel('ordersDetail').getData()
 
-        if (position !== -1) {
-          return MessageToast.show(orders.at(position).orderID)
-        }
-
-        MessageToast.show("Selecione um item")
+        this.navTo('RouteOrderCreate', {
+          query: {
+            orderId: ID
+          }
+        });
       },
 
       onDelete: function () {

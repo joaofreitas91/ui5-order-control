@@ -2,104 +2,19 @@ sap.ui.define([
   "com/lab2dev/ordercontrol/controller/BaseController",
   "sap/ui/model/json/JSONModel",
   "sap/m/MessageToast",
-  "com/lab2dev/ordercontrol/model/formatter"
+  "com/lab2dev/ordercontrol/model/formatter",
+  "sap/ui/model/odata/v2/ODataModel",
 ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, JSONModel, MessageToast, formatter) {
+  function (Controller, JSONModel, MessageToast, formatter, ODataModel) {
     "use strict";
 
     return Controller.extend("com.lab2dev.ordercontrol.controller.OrderCreate", {
       formatter: formatter,
 
       onInit: function () {
-        const payload = [
-          {
-            orderID: 8878,
-            state: 'Aprovado',
-            createdDate: "03/14/2024",
-            receiverProduct: 70,
-            paymentMethod: 70,
-            value: 99.33,
-          },
-          {
-            orderID: 1234,
-            state: 'Entregue',
-            createdDate: "03/15/2024",
-            receiverProduct: 80,
-            paymentMethod: 60,
-            value: 120.50,
-          },
-          {
-            orderID: 5678,
-            state: 'Aprovado',
-            createdDate: "03/16/2024",
-            receiverProduct: 90,
-            paymentMethod: 75,
-            value: 85.75,
-          },
-          {
-            orderID: 2468,
-            state: 'Recusado',
-            createdDate: "03/17/2024",
-            receiverProduct: 60,
-            paymentMethod: 80,
-            value: 150.20,
-          },
-          {
-            orderID: 1357,
-            state: 'Aprovado',
-            createdDate: "03/18/2024",
-            receiverProduct: 85,
-            paymentMethod: 65,
-            value: 110.75,
-          },
-          {
-            orderID: 9999,
-            state: 'Aprovado',
-            createdDate: "03/19/2024",
-            receiverProduct: 70,
-            paymentMethod: 70,
-            value: 99.99,
-          },
-          {
-            orderID: 3333,
-            state: 'Recusado',
-            createdDate: "03/20/2024",
-            receiverProduct: 75,
-            paymentMethod: 85,
-            value: 75.85,
-          },
-          {
-            orderID: 7777,
-            state: 'Aprovado',
-            createdDate: "03/21/2024",
-            receiverProduct: 95,
-            paymentMethod: 55,
-            value: 125.60,
-          },
-          {
-            orderID: 4444,
-            state: 'Entregue',
-            createdDate: "03/22/2024",
-            receiverProduct: 55,
-            paymentMethod: 95,
-            value: 80.55,
-          },
-          {
-            orderID: 8888,
-            state: 'Entregue',
-            createdDate: "03/23/2024",
-            receiverProduct: 80,
-            paymentMethod: 70,
-            value: 95.80,
-          }
-        ];
-        const oData = new JSONModel(payload)
-
-        this.getView().setModel(oData, 'orders')
-
         const oRouter = this.getOwnerComponent().getRouter();
         const routeDetail = oRouter.getRoute("RouteOrderCreate")
         routeDetail.attachPatternMatched(this.onObjectMatched, this);
@@ -107,7 +22,66 @@ sap.ui.define([
 
       onObjectMatched: function (oEvent) {
         const oArgs = oEvent.getParameter("arguments");
-        const args = oArgs;
+        const orderId = oArgs['?query'].orderId
+
+        if (orderId === 'new') {
+          const itemsModel = new JSONModel([])
+          this.getView().setModel(itemsModel, 'items')
+        } else {
+          const oModel = new ODataModel(this.getOwnerComponent().getManifestObject().resolveUri('v2/fiori'))
+
+          oModel.attachMetadataLoaded(() => {
+            oModel.read(`/SalesOrderDraft(${orderId})`, {
+              urlParameters: {
+                $expand: "items",
+              },
+              success: (oData) => {
+                const itemsModel = new JSONModel(oData.items.results)
+                this.getView().setModel(itemsModel, 'items')
+              },
+              error: (oError) => {
+                var msg = 'Erro ao acessar entidade.'
+                MessageToast.show(msg);
+              }
+            })
+          });
+
+          oModel.attachMetadataFailed(() => {
+            var msg = 'Serviço não disponível no momento. Tente novamente mais tarde.'
+            MessageToast.show(msg);
+          });
+        }
+
+        const ItemModel = new JSONModel({
+          items: "",
+          material: "",
+          quantity: "",
+          quantity_unit: "PC",
+          amount: ""
+        })
+
+        this.getView().setModel(ItemModel, 'item')
+
+
+
+      },
+
+      onAddItem: function () {
+        const currentItem = this.getView().getModel('item').getData();
+        const items = this.getView().getModel('items').getData();
+
+        const itemsModel = new JSONModel([...items, currentItem])
+        this.getView().setModel(itemsModel, 'items')
+
+        const ItemModel = new JSONModel({
+          items: "",
+          material: "",
+          quantity: "",
+          quantity_unit: "PC",
+          amount: ""
+        })
+
+        this.getView().setModel(ItemModel, 'item')
       },
 
       onEdit: function () {
@@ -132,15 +106,53 @@ sap.ui.define([
         MessageToast.show("Selecione um item")
       },
 
-      onDelete: function () {
-        const position = this.byId('tableOrders').getSelectedIndex()
-        const orders = this.getView().getModel('orders').getData()
+      removeItem: function (oEvent) {
+        const source = oEvent.getSource();
+        const context = source.getBindingContext('items');
+        const path = context.getPath();
 
-        if (position !== -1) {
-          return MessageToast.show(orders.at(position).orderID)
-        }
+        const { ID } = context.getObject(path);
 
-        MessageToast.show("Selecione um item")
+        const items = this.getView().getModel('items').getData()
+        const removeItem = items.filter(item => item.ID !== ID)
+
+        const itemsModel = new JSONModel(removeItem)
+
+        this.getView().setModel(itemsModel, 'items')
+
+      },
+
+      onCreate: function () {
+        const oModel = new ODataModel(this.getOwnerComponent().getManifestObject().resolveUri('v2/fiori'))
+        const items = this.getView().getModel('items').getData()
+
+        oModel.attachMetadataLoaded(() => {
+          oModel.create("/SalesOrderDraft", {
+            "receiver": "USCU_S02",
+            "payment_condition": "NT30",
+            "total_amount": 1000,
+            "status": "approved",
+            items
+          }, {
+
+            success: (oData) => {
+              var msg = 'Solicitação criada com sucesso.'
+              MessageToast.show(msg);
+
+              this.onNavBack()
+            },
+            error: (oError) => {
+              var msg = 'Erro ao criar solicitação.'
+              MessageToast.show(msg);
+            }
+          })
+        });
+
+        oModel.attachMetadataFailed(() => {
+          var msg = 'Serviço não disponível no momento. Tente novamente mais tarde.'
+          MessageToast.show(msg);
+        });
+
       },
 
       handleNavBack: function () {

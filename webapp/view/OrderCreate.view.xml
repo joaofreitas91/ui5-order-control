@@ -37,19 +37,11 @@
                             >
                                 <Title
                                     level="H3"
-                                    text="Name:"
+                                    text="Status:"
                                 />
-                                <Text text="Citrosuco" />
-                            </VBox>
-                            <VBox
-                                class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
-                            >
-                                <Title
-                                    level="H3"
-                                    text="Endereço:"
-                                />
-                                <Text
-                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
+                                <web:Badge
+                                    text="Novo"
+                                    colorScheme="8"
                                 />
                             </VBox>
                             <VBox
@@ -57,59 +49,43 @@
                             >
                                 <Title
                                     level="H3"
-                                    text="Endereço:"
+                                    text="Recebedor da Mercadoria:"
                                 />
-                                <Text
-                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
-                                />
+                                <Text text="USCU_S02" />
                             </VBox>
                             <VBox
                                 class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
                             >
                                 <Title
                                     level="H3"
-                                    text="Endereço:"
+                                    text="Condição de Pagamento:"
                                 />
-                                <Text
-                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
-                                />
+                                <Text text="NT30" />
                             </VBox>
-                            <VBox
+                            <!-- <VBox
                                 class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
                             >
                                 <Title
                                     level="H3"
-                                    text="Endereço:"
+                                    text="Total"
                                 />
-                                <Text
-                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
-                                />
-                            </VBox>
-                            <VBox
-                                class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
-                            >
-                                <Title
-                                    level="H3"
-                                    text="Endereço:"
-                                />
-                                <Text
-                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
-                                />
-                            </VBox>
+                                <Text text="1000" />
+                            </VBox> -->
                         </HBox>
                     </content>
                 </Panel>
             </VBox>
-            <VBox class="sapUiMediumMarginBeginEnd">
+
+            <VBox class="sapUiMediumMarginBeginEnd sapUiMediumMarginTop">
                 <Panel>
                     <headerToolbar>
                         <OverflowToolbar>
-                            <Title text="Informações do usuário" />
+                            <Title text="Adicionar Produto" />
                         </OverflowToolbar>
                     </headerToolbar>
                     <content>
                         <HBox
-                            alignItems="Center"
+                            alignItems="End"
                             justifyContent="SpaceBetween"
                         >
                             <VBox
@@ -117,19 +93,11 @@
                             >
                                 <Title
                                     level="H3"
-                                    text="Name:"
+                                    text="Itens:"
                                 />
-                                <Text text="Citrosuco" />
-                            </VBox>
-                            <VBox
-                                class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
-                            >
-                                <Title
-                                    level="H3"
-                                    text="Endereço:"
-                                />
-                                <Text
-                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
+                                <Input
+                                    placeholder="Insira o item"
+                                    value="{item>/items}"
                                 />
                             </VBox>
                             <VBox
@@ -137,21 +105,11 @@
                             >
                                 <Title
                                     level="H3"
-                                    text="Endereço:"
+                                    text="Material:"
                                 />
-                                <Text
-                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
-                                />
-                            </VBox>
-                            <VBox
-                                class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
-                            >
-                                <Title
-                                    level="H3"
-                                    text="Endereço:"
-                                />
-                                <Text
-                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
+                                <Input
+                                    placeholder="Insira o Material"
+                                    value="{item>/material}"
                                 />
                             </VBox>
                             <VBox
@@ -159,10 +117,11 @@
                             >
                                 <Title
                                     level="H3"
-                                    text="Endereço:"
+                                    text="Quantidade:"
                                 />
-                                <Text
-                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
+                                <Input
+                                    placeholder="Insira a quantidade"
+                                    value="{item>/quantity}"
                                 />
                             </VBox>
                             <VBox
@@ -170,10 +129,32 @@
                             >
                                 <Title
                                     level="H3"
-                                    text="Endereço:"
+                                    text="Unidade de medidda:"
                                 />
-                                <Text
-                                    text="Av. Gov. Mário Covas Júnio, 68, Santos - SP, 11020-300"
+                                <Input
+                                    placeholder="Insira a unidade de medida"
+                                    value="{item>/quantity_unit}"
+                                />
+                            </VBox>
+                            <VBox
+                                class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
+                            >
+                                <Title
+                                    level="H3"
+                                    text="Valor:"
+                                />
+                                <Input
+                                    placeholder="Insira o valor"
+                                    value="{item>/amount}"
+                                />
+                            </VBox>
+                            <VBox
+                                class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
+                            >
+                                <Button
+                                    type="Accept"
+                                    text="Adicionar produto"
+                                    press="onAddItem"
                                 />
                             </VBox>
                         </HBox>
@@ -181,13 +162,15 @@
                 </Panel>
             </VBox>
         </VBox>
+
         <content>
             <t:Table
                 id="tableOrders"
-                rows="{orders>/}"
+                rows="{items>/}"
                 selectionMode="Single"
                 selectionBehavior="RowOnly"
                 class="sapUiMediumMarginBeginEnd"
+                rowActionCount="1"
             >
                 <t:extension>
                     <OverflowToolbar>
@@ -204,49 +187,37 @@
                 </t:extension>
                 <t:columns>
                     <t:Column>
-                        <Label text="Pedido" />
+                        <Label text="Itens" />
                         <t:template>
                             <Text
-                                text="{orders>orderID}"
+                                text="{items>items}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column>
-                        <Label text="Status" />
-                        <t:template>
-                            <web:Badge
-                                text="{orders>state}"
-                                colorScheme="{
-                                    path: 'orders>state',
-                                    formatter: '.formatter.textStatus'
-                                }"
-                            />
-                        </t:template>
-                    </t:Column>
-                    <t:Column>
-                        <Label text="Data de Criação" />
+                        <Label text="Material" />
                         <t:template>
                             <Text
-                                text="{orders>createdDate}"
+                                text="{items>material}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column>
-                        <Label text="Recebedor da Mercadoria" />
+                        <Label text="Quantidade" />
                         <t:template>
                             <Text
-                                text="{orders>receiverProduct}"
+                                text="{items>quantity}"
                                 wrapping="false"
                             />
                         </t:template>
                     </t:Column>
                     <t:Column>
-                        <Label text="Condição de Pagamento" />
+                        <Label text="Unidade de Medida" />
                         <t:template>
                             <Text
-                                text="{orders>paymentMethod}"
+                                text="{items>quantity_unit}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -254,21 +225,25 @@
                     <t:Column>
                         <Label text="Valor" />
                         <t:template>
-                            <ObjectNumber
-                                number="{ path: 'orders>value',
-                                type: 'sap.ui.model.type.Float',
-                                formatOptions: {
-                                    minFractionDigits: 2,
-                                    maxFractionDigits: 2
-                                }
-                            }"
-                                unit="BRL"
+                            <Text
+                                text="{items>amount}"
+                                wrapping="false"
                             />
                         </t:template>
                     </t:Column>
                 </t:columns>
+                <t:rowActionTemplate>
+                    <t:RowAction>
+                        <t:RowActionItem
+                            id="rowActionID"
+                            icon="sap-icon://decline"
+                            press="removeItem"
+                        />
+                    </t:RowAction>
+                </t:rowActionTemplate>
             </t:Table>
         </content>
+
         <footer>
             <OverflowToolbar>
                 <Button
@@ -278,14 +253,15 @@
                     type="Back"
                 />
                 <ToolbarSpacer />
-                <Button
+                <!-- <Button
                     text="Excluir Pedido"
                     type="Attention"
-                />
+                /> -->
                 <Button
-                    text="Novo Pedido"
+                    text="Criar solicitação"
                     class="sapUiMediumMarginEnd"
                     type="Accept"
+                    press="onCreate"
                 />
             </OverflowToolbar>
         </footer>

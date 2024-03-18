@@ -60,12 +60,12 @@ sap.ui.define([
       onCopy: function () {
         const position = this.byId('tableOrders').getSelectedIndex()
         const orders = this.getView().getModel('orders').getData()
-        const { orderId } = orders.at(position)
+        const { ID } = orders.at(position)
 
         if (position !== -1) {
           return this.navTo('RouteOrderCreate', {
             query: {
-              orderId
+              orderId: ID
             }
           });
         }
