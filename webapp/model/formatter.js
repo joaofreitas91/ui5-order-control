@@ -14,7 +14,7 @@ sap.ui.define([], () => {
                     return '8'
                 case 'pending':
                     return '5'
-                case 'rejected ':
+                case 'denied':
                     return '2'
                 default:
                     return sState
@@ -29,7 +29,7 @@ sap.ui.define([], () => {
                     return 'Aprovado'
                 case 'pending':
                     return 'Pendente'
-                case 'rejected ':
+                case 'denied':
                     return 'Rejeitado'
                 default:
                     return sState
