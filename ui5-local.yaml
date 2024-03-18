@@ -27,6 +27,10 @@ server:
       afterMiddleware: compression
       configuration:
         ignoreCertError: false
+        backend:
+          - path: /v2
+            url: https://lab2dev-solucoes-em-technologia-ltda-dev-amazon-web-ser7c945c25.cfapps.us10-001.hana.ondemand.com
+            destination: POC_SALES_ORDER
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:

@@ -1,24 +1,39 @@
 sap.ui.define([], () => {
-	"use strict";
+    "use strict";
 
-	return {
-		toUpperCase: function (sValue) {
-			return sValue.toUpperCase();
-		},
+    return {
+        toUpperCase: function (sValue) {
+            return sValue.toUpperCase();
+        },
 
-        textStatus: function(sValue) {
-            if(!sValue) return sValue
+        colorStatus: function (sState) {
+            if (!sState) return sState
 
-            switch (sValue) {
-                case 'Aprovado':
+            switch (sState) {
+                case 'approved':
                     return '8'
-                case 'Entregue':
+                case 'pending':
                     return '5'
-                case 'Recusado':
+                case 'rejected ':
                     return '2'
                 default:
-                    return sValue
+                    return sState
+            }
+        },
+
+        textStatus: function (sState) {
+            if (!sState) return sState
+
+            switch (sState) {
+                case 'approved':
+                    return 'Aprovado'
+                case 'pending':
+                    return 'Pendente'
+                case 'rejected ':
+                    return 'Rejeitado'
+                default:
+                    return sState
             }
         }
-	};
+    };
 });

@@ -13,6 +13,10 @@ server:
             - /resources
             - /test-resources
           url: https://ui5.sap.com
+        backend:
+          - path: /v2
+            url: https://lab2dev-solucoes-em-technologia-ltda-dev-amazon-web-ser7c945c25.cfapps.us10-001.hana.ondemand.com
+            destination: POC_SALES_ORDER
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

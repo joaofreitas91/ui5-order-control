@@ -15,7 +15,17 @@
             "version": "1.12.5",
             "toolsId": "466334be-c6d3-49b9-9116-4a6b2d4f373f"
         },
-        "dataSources": {},
+        "dataSources": {
+            "fiori": {
+                "uri": "/v2/fiori/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            }
+        },
         "crossNavigation": {
             "inbounds": {
                 "ordercontrol_sem_obj-Display": {
@@ -48,7 +58,7 @@
         }
     },
     "sap.ui5": {
-        "flexEnabled": true,
+        "flexEnabled": false,
         "dependencies": {
             "minUI5Version": "1.121.2",
             "libs": {
@@ -71,6 +81,18 @@
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
                     "bundleName": "com.lab2dev.ordercontrol.i18n.i18n"
+                }
+            },
+            "": {
+                "preload": true,
+                "dataSource": "fiori",
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
                 }
             }
         },
@@ -101,9 +123,16 @@
                 },
                 {
                     "name": "RouteOrderDetail",
-                    "pattern": "detail/{productId}",
+                    "pattern": "detail/{orderId}",
                     "target": [
                         "TargetOrderDetail"
+                    ]
+                },
+                {
+                    "name": "RouteOrderCreate",
+                    "pattern": "create/:?query:",
+                    "target": [
+                        "TargetOrderCreate"
                     ]
                 }
             ],
@@ -121,6 +150,13 @@
                     "clearControlAggregation": false,
                     "viewId": "OrderDetail",
                     "viewName": "OrderDetail"
+                },
+                "TargetOrderCreate": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "OrderCreate",
+                    "viewName": "OrderCreate"
                 }
             }
         },

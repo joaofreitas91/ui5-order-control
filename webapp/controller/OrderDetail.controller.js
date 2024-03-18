@@ -11,27 +11,30 @@ sap.ui.define([
   function (Controller, JSONModel, MessageToast, formatter, ODataModel) {
     "use strict";
 
-    return Controller.extend("com.lab2dev.ordercontrol.controller.OrderControl", {
+    return Controller.extend("com.lab2dev.ordercontrol.controller.OrderDetail", {
       formatter: formatter,
 
       onInit: function () {
         const oRouter = this.getOwnerComponent().getRouter();
-        const routeDetail = oRouter.getRoute("RouteOrderControl")
+        const routeDetail = oRouter.getRoute("RouteOrderDetail")
         routeDetail.attachPatternMatched(this.onObjectMatched, this);
       },
 
-      onObjectMatched: function () {
+      onObjectMatched: function (oEvent) {
+        const oArgs = oEvent.getParameter("arguments");
+        const { orderId } = oArgs;
+
         const oModel = new ODataModel(this.getOwnerComponent().getManifestObject().resolveUri('v2/fiori'))
 
         oModel.attachMetadataLoaded(() => {
-          oModel.read("/SalesOrderDraft", {
+          oModel.read(`/SalesOrderDraft(${orderId})`, {
             urlParameters: {
               $expand: "items",
             },
             success: (oData) => {
-              var oModel = new JSONModel(oData.results)
+              var oModel = new JSONModel(oData)
 
-              this.getView().setModel(oModel, 'orders')
+              this.getView().setModel(oModel, 'ordersDetail')
             },
             error: (oError) => {
               var msg = 'Erro ao acessar entidade.'
@@ -60,14 +63,9 @@ sap.ui.define([
       onCopy: function () {
         const position = this.byId('tableOrders').getSelectedIndex()
         const orders = this.getView().getModel('orders').getData()
-        const { orderId } = orders.at(position)
 
         if (position !== -1) {
-          return this.navTo('RouteOrderCreate', {
-            query: {
-              orderId
-            }
-          });
+          return MessageToast.show(orders.at(position).orderID)
         }
 
         MessageToast.show("Selecione um item")
@@ -84,18 +82,8 @@ sap.ui.define([
         MessageToast.show("Selecione um item")
       },
 
-      handleNavDetail: function (oEvent) {
-        const source = oEvent.getSource();
-        const context = source.getBindingContext('orders');
-        const path = context.getPath();
-
-        const { ID } = context.getObject(path);
-
-        this.navTo('RouteOrderDetail', { orderId: ID })
-      },
-
-      handleNavCreate: function () {
-        this.navTo('RouteOrderCreate', { query: { orderId: 'new' } })
+      handleNavBack: function () {
+        this.onNavBack()
       }
     });
   });

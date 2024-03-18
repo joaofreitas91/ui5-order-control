@@ -23,7 +23,6 @@
             <HBox
                 class="sapUiSmallMarginTopBottom"
                 justifyContent="SpaceBetween"
-                width="100%"
             >
                 <GenericTile
                     width="16rem"
@@ -80,7 +79,6 @@
                 <Panel
                     width="auto"
                     accessibleRole="Region"
-                    derection="Collumn"
                     class="sapUiMediumMarginBeginEnd"
                 >
                     <headerToolbar>
@@ -122,7 +120,7 @@
                 </Panel>
             </HBox>
             <VBox class="sapUiMediumMarginBeginEnd">
-                <Panel >
+                <Panel>
                     <headerToolbar>
                         <OverflowToolbar>
                             <Title text="Informações do usuário" />
@@ -166,8 +164,6 @@
                 rowActionCount="1"
                 selectionMode="Single"
                 selectionBehavior="RowOnly"
-                visibleRowCountMode="Fixed"
-                visibleRowCount="10"
                 class="sapUiMediumMarginBeginEnd"
             >
                 <t:extension>
@@ -203,7 +199,7 @@
                         <Label text="Pedido" />
                         <t:template>
                             <Text
-                                text="{orders>orderID}"
+                                text="{orders>ID}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -212,10 +208,13 @@
                         <Label text="Status" />
                         <t:template>
                             <web:Badge
-                                text="{orders>state}"
-                                colorScheme="{
-                                    path: 'orders>state',
+                                text="{
+                                    path: 'orders>status',
                                     formatter: '.formatter.textStatus'
+                                }"
+                                colorScheme="{
+                                    path: 'orders>status',
+                                    formatter: '.formatter.colorStatus'
                                 }"
                             />
                         </t:template>
@@ -224,7 +223,7 @@
                         <Label text="Data de Criação" />
                         <t:template>
                             <Text
-                                text="{orders>createdDate}"
+                                text="{orders>createdAt}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -233,7 +232,7 @@
                         <Label text="Recebedor da Mercadoria" />
                         <t:template>
                             <Text
-                                text="{orders>receiverProduct}"
+                                text="{orders>receiver}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -242,7 +241,7 @@
                         <Label text="Condição de Pagamento" />
                         <t:template>
                             <Text
-                                text="{orders>paymentMethod}"
+                                text="{orders>payment_condition}"
                                 wrapping="false"
                             />
                         </t:template>
@@ -251,7 +250,7 @@
                         <Label text="Valor" />
                         <t:template>
                             <ObjectNumber
-                                number="{ path: 'orders>value',
+                                number="{ path: 'orders>total_amount',
                                 type: 'sap.ui.model.type.Float',
                                 formatOptions: {
                                     minFractionDigits: 2,
@@ -268,7 +267,7 @@
                         <t:RowActionItem
                             id="rowActionID"
                             icon="sap-icon://navigation-right-arrow"
-                            press="navTo"
+                            press="handleNavDetail"
                         />
                     </t:RowAction>
                 </t:rowActionTemplate>
@@ -279,7 +278,9 @@
                 <ToolbarSpacer />
                 <Button
                     text="Novo Pedido"
+                    class="sapUiMediumMarginEnd"
                     type="Accept"
+                    press="handleNavCreate"
                 />
             </OverflowToolbar>
         </footer>
