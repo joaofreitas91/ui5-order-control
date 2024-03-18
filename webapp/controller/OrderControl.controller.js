@@ -22,6 +22,7 @@ sap.ui.define([
 
       onObjectMatched: function () {
         const oModel = new ODataModel(this.getOwnerComponent().getManifestObject().resolveUri('v2/fiori'))
+        // const oModel = new ODataModel(sap.ui.require.toUrl('v2/fiori'))
 
         oModel.attachMetadataLoaded(() => {
           oModel.read("/SalesOrderDraft", {
