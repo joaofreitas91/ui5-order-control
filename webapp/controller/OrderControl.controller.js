@@ -22,7 +22,6 @@ sap.ui.define([
 
       onObjectMatched: function () {
         const oModel = new ODataModel(this.getOwnerComponent().getManifestObject().resolveUri('v2/fiori'))
-        // const oModel = new ODataModel(sap.ui.require.toUrl('v2/fiori'))
 
         oModel.attachMetadataLoaded(() => {
           oModel.read("/SalesOrderDraft", {
@@ -79,10 +78,29 @@ sap.ui.define([
         const orders = this.getView().getModel('orders').getData()
 
         if (position !== -1) {
-          return MessageToast.show(orders.at(position).orderID)
+          const oModel = new ODataModel(this.getOwnerComponent().getManifestObject().resolveUri('v2/fiori'))
+
+          oModel.attachMetadataLoaded(() => {
+            oModel.remove(`/SalesOrderDraft(${orders.at(position).ID})`, {
+              success: () => {
+                const filteredOrders = orders.filter(order => order.ID !== orders.at(position).ID)
+                this.getView().setModel(new JSONModel(filteredOrders), 'orders')
+              },
+              error: (oError) => {
+                var msg = 'Erro ao remover entidade.'
+                MessageToast.show(msg);
+              }
+            })
+          });
+
+          oModel.attachMetadataFailed(() => {
+            var msg = 'Serviço não disponível no momento. Tente novamente mais tarde.'
+            MessageToast.show(msg);
+          });
+        } else {
+          MessageToast.show("Selecione um item")
         }
 
-        MessageToast.show("Selecione um item")
       },
 
       handleNavDetail: function (oEvent) {

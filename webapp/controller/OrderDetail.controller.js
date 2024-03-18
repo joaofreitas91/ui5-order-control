@@ -72,14 +72,27 @@ sap.ui.define([
       },
 
       onDelete: function () {
-        const position = this.byId('tableOrders').getSelectedIndex()
-        const orders = this.getView().getModel('orders').getData()
+        const { ID } = this.getView().getModel('ordersDetail').getData()
+        const that = this
 
-        if (position !== -1) {
-          return MessageToast.show(orders.at(position).orderID)
-        }
+        const oModel = new ODataModel(this.getOwnerComponent().getManifestObject().resolveUri('v2/fiori'))
 
-        MessageToast.show("Selecione um item")
+        oModel.attachMetadataLoaded(() => {
+          oModel.remove(`/SalesOrderDraft(${ID})`, {
+            success: () => {
+              that.handleNavBack()
+            },
+            error: (oError) => {
+              var msg = 'Erro ao remover entidade.'
+              MessageToast.show(msg);
+            }
+          })
+        });
+
+        oModel.attachMetadataFailed(() => {
+          var msg = 'Serviço não disponível no momento. Tente novamente mais tarde.'
+          MessageToast.show(msg);
+        });
       },
 
       handleNavBack: function () {

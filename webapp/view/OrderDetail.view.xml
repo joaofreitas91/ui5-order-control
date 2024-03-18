@@ -149,6 +149,7 @@
                 <Button
                     text="Excluir Pedido"
                     type="Attention"
+                    press="onDelete"
                 />
                 <Button
                     text="Repetir Pedido"
