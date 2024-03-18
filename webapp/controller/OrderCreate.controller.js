@@ -131,7 +131,7 @@ sap.ui.define([
             "receiver": "USCU_S02",
             "payment_condition": "NT30",
             "total_amount": 1000,
-            "status": "approved",
+            "status": "pending",
             items
           }, {
 
