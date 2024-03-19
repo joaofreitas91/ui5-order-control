@@ -28,7 +28,7 @@
                     width="16rem"
                     class="tileLayout sapUiMediumMarginBeginEnd"
                     header="Total de Pedidos Diários"
-                    subheader="Data: 14/03/2024"
+                    subheader="Data: 19/03/2024"
                     pressEnabled="false"
                 >
                     <TileContent>
@@ -44,13 +44,13 @@
                 <GenericTile
                     width="16rem"
                     class="tileLayout sapUiMediumMarginBeginEnd"
-                    header="Total de Pedidos Diários"
-                    subheader="Data: 14/03/2024"
+                    header="Total de Pedidos Mensais"
+                    subheader="Mês de Março"
                     pressEnabled="false"
                 >
                     <TileContent>
                         <NumericContent
-                            value="5"
+                            value="89"
                             valueColor="Good"
                             withMargin="false"
                             scale="UN"
@@ -61,13 +61,13 @@
                 <GenericTile
                     width="16rem"
                     class="tileLayout sapUiMediumMarginBeginEnd"
-                    header="Total de Pedidos Diários"
-                    subheader="Data: 14/03/2024"
+                    header="Total de Pedidos Anuais"
+                    subheader="Ano 2024"
                     pressEnabled="false"
                 >
                     <TileContent>
                         <NumericContent
-                            value="5"
+                            value="150"
                             valueColor="Good"
                             withMargin="false"
                             scale="UN"
@@ -83,7 +83,7 @@
                 >
                     <headerToolbar>
                         <OverflowToolbar>
-                            <Title text="Informações do usuário" />
+                            <Title text="Status dos pedidos" />
                         </OverflowToolbar>
                     </headerToolbar>
                     <content>
@@ -99,17 +99,17 @@
                             >
                                 <chart:segments>
                                     <chart:InteractiveDonutChartSegment
-                                        label="Implementation Phase"
+                                        label="Aprovado"
                                         value="40.0"
                                         displayedValue="40.0%"
                                     />
                                     <chart:InteractiveDonutChartSegment
-                                        label="Design Phase"
+                                        label="Pendentes"
                                         value="21.5"
                                         displayedValue="21.5%"
                                     />
                                     <chart:InteractiveDonutChartSegment
-                                        label="Test Phase"
+                                        label="Recusado"
                                         value="38.5"
                                         displayedValue="38.5%"
                                     />
