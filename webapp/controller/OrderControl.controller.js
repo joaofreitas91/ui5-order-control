@@ -4,11 +4,13 @@ sap.ui.define([
   "sap/m/MessageToast",
   "com/lab2dev/ordercontrol/model/formatter",
   "sap/ui/model/odata/v2/ODataModel",
+  "sap/ui/model/Filter",
+  "sap/ui/model/FilterOperator"
 ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, JSONModel, MessageToast, formatter, ODataModel) {
+  function (Controller, JSONModel, MessageToast, formatter, ODataModel, Filter, FilterOperator) {
     "use strict";
 
     return Controller.extend("com.lab2dev.ordercontrol.controller.OrderControl", {
@@ -44,6 +46,21 @@ sap.ui.define([
           var msg = 'Serviço não disponível no momento. Tente novamente mais tarde.'
           MessageToast.show(msg);
         });
+      },
+
+      onSearch: function (oEvent) {
+        const aFilters = [];
+        const sQuery = oEvent.getSource().getValue();
+
+        if (sQuery && sQuery.length > 0) {
+          const filter = new Filter("ID", FilterOperator.Contains, sQuery);
+          aFilters.push(filter);
+        }
+
+        // update list binding
+        const oTable = this.byId("tableOrders");
+        const oBinding = oTable.getBinding("rows");
+        oBinding.filter(aFilters);
       },
 
       onEdit: function () {
