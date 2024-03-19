@@ -57,7 +57,6 @@ sap.ui.define([
           aFilters.push(filter);
         }
 
-        // update list binding
         const oTable = this.byId("tableOrders");
         const oBinding = oTable.getBinding("rows");
         oBinding.filter(aFilters);
@@ -68,7 +67,7 @@ sap.ui.define([
         const orders = this.getView().getModel('orders').getData()
 
         if (position !== -1) {
-          return MessageToast.show(orders.at(position).orderID)
+          return MessageToast.show(orders.at(position).ID)
         }
 
         MessageToast.show("Selecione um item")
