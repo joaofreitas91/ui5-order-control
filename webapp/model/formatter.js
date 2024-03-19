@@ -34,6 +34,12 @@ sap.ui.define([], () => {
                 default:
                     return sState
             }
+        },
+
+        formatDate: function (sDate) {
+            if (!sDate) return sDate
+
+            return new Date(sDate).toLocaleDateString('pt-BR')
         }
     };
 });

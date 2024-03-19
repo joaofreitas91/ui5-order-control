@@ -223,7 +223,19 @@
                         <Label text="Data de Criação" />
                         <t:template>
                             <Text
-                                text="{orders>createdAt}"
+                                text="{
+                                    path: 'orders>createdAt',
+                                    formatter: '.formatter.formatDate'
+                                }"
+                                wrapping="false"
+                            />
+                        </t:template>
+                    </t:Column>
+                    <t:Column>
+                        <Label text="S4 ID" />
+                        <t:template>
+                            <Text
+                                text="{orders>s4_sales_order_id}"
                                 wrapping="false"
                             />
                         </t:template>
